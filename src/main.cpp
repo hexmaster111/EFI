@@ -11,6 +11,7 @@ const int idlePot    = 1; // Ajust the amount of fule the enjectors give at idle
 // config
 unsigned int idletoon         = 3;
 const int    idleThresh       = 78;
+const int    throtalTune      = 17;
 // End config
 
 
@@ -32,10 +33,6 @@ void setup()
   Serial.begin(9600);
   Serial.println("Enjector Output termianl Started");
 }
-
-
-
-
 
 void loop(){
 //Getting Persentage
@@ -60,7 +57,8 @@ if (injInterval >= idleThresh){
 ///////End Fule pump
 
 ////////Enjector Code
-if (currentMillis - lastInject >= injInterval){
+if (currentMillis - lastInject >= injInterval + throtalTune){
+  Serial.println(idleAmount);
     lastInject = currentMillis;
     if (injectorState == LOW) {
       injectorState = HIGH;
